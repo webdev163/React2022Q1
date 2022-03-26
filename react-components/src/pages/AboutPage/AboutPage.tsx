@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { AboutPageProps, AboutPageState } from './types';
 
 import styles from './AboutPage.module.scss';
 
 export default class AboutPage extends Component {
-  // constructor() {
-  //   super(null);
-  //   // this.state = {};
-  // }
-
   render() {
     return (
-      <div>
-        <p>About page</p>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>О нас</h1>
+        <p>Самая крутая компания с самой крутой пиццей в мире!</p>
       </div>
     );
   }
