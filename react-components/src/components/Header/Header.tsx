@@ -12,9 +12,13 @@ export default class Header extends Component {
 
   render() {
     return (
-      <div>
-        <NavLink to="/">Главная</NavLink>
-        <NavLink to="/about">О нас</NavLink>
+      <div className={styles.wrapper}>
+        <NavLink to="/" className={styles.link}>
+          Главная
+        </NavLink>
+        <NavLink to="/about" className={styles.link}>
+          О нас
+        </NavLink>
       </div>
     );
   }

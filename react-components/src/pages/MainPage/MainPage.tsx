@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import SearchForm from '../../components/SearchForm';
 import { MainPageState } from './types';
-import Header from '../../components/Header';
 
 import styles from './MainPage.module.scss';
 
@@ -13,7 +13,9 @@ export default class MainPage extends Component {
   render() {
     return (
       <div>
-        <p>Main Page</p>
+        <div className={styles.formWrapper}>
+          <SearchForm />
+        </div>
       </div>
     );
   }
