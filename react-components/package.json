@@ -24,7 +24,9 @@
     "test-cv": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss}\"",
-    "lint": "eslint --fix \"src/**/*.{ts,tsx,js,jsx}\""
+    "lint": "eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",
+    "pre-commit": "lint-staged",
+    "prepare": "cd.. && husky install react-components/.husky"
   },
   "eslintConfig": {
     "extends": [
@@ -60,5 +62,8 @@
       "src/**/*.{ts,tsx}",
       "!src/index.tsx"
     ]
+  },
+  "lint-staged": {
+    "*.(ts|tsx)": "npm run lint"
   }
 }
