@@ -22,4 +22,12 @@ describe('Card list', () => {
   it('should render component', () => {
     expect(item).toBeInTheDocument();
   });
+
+  it('should render props correctly', () => {
+    expect(item).toContainHTML(testData.title);
+    expect(item).toContainHTML(testData.ingredients);
+    expect(item).toContainHTML(testData.price);
+    expect(item).toContainHTML(testData.weight);
+    expect(item).toContainHTML(testData.ccal);
+  });
 });
