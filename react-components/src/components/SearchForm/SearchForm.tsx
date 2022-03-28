@@ -18,16 +18,16 @@ export default class SearchForm extends Component<Record<string, never>, SearchF
 
   handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
-    if (target) {
-      this.setState({ value: target.value });
-    }
+    target && this.setState({ value: target.value });
   }
 
   render() {
     return (
       <form action="" className={styles.form}>
         <input
+          name="search"
           type="text"
+          placeholder="Поиск"
           className={styles.input}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.handleSearch(e)}
           value={this.state.value}

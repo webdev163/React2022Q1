@@ -23,6 +23,10 @@ export default class CardList extends Component {
   }
 
   render() {
-    return <ul className={styles.list}>{this.generateCards()}</ul>;
+    return (
+      <ul className={styles.list} data-testid="card-list">
+        {this.generateCards()}
+      </ul>
+    );
   }
 }

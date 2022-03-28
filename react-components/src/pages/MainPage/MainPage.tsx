@@ -7,7 +7,7 @@ import styles from './MainPage.module.scss';
 export default class MainPage extends Component {
   render() {
     return (
-      <div>
+      <div data-testid="main-page">
         <div className={styles.formWrapper}>
           <SearchForm />
         </div>

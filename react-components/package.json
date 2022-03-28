@@ -21,6 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-cv": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss}\"",
     "lint": "eslint --fix \"src/**/*.{ts,tsx,js,jsx}\""
@@ -53,5 +54,11 @@
     "lint-staged": "^12.3.7",
     "prettier": "^2.6.1",
     "sass": "^1.49.9"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/index.tsx"
+    ]
   }
 }

@@ -11,7 +11,7 @@ export default class CardItem extends Component<CardItemProps> {
   render() {
     const { id, title, ingredients, price, weight, ccal } = this.props;
     return (
-      <article className={styles.wrapper}>
+      <li className={styles.wrapper}>
         <div className={styles.img}>
           <img src={`/img/cards/${id}.jpg`} alt="" />
         </div>
@@ -27,7 +27,7 @@ export default class CardItem extends Component<CardItemProps> {
         <button type="button" className={styles.button}>
           Выбрать
         </button>
-      </article>
+      </li>
     );
   }
 }
