@@ -16,19 +16,17 @@ export default class FormPage extends Component<Record<string, never>, FormPageS
   }
 
   setFormState(newState: FormData) {
-    this.setState({ formStatesArr: [...this.state.formStatesArr, newState] });
-  }
-
-  componentDidUpdate() {
-    console.log(this.state.formStatesArr);
+    this.setState({ formStatesArr: [newState, ...this.state.formStatesArr] });
   }
 
   render() {
     return (
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         <div className={styles.form} data-testid="form-page">
           <Form setFormState={this.setFormState} />
         </div>
+        <h2>Ваши заказы:</h2>
+        {this.state.formStatesArr.length ? '' : <p>Данные не найдены</p>}
         <FormCardList statesArr={this.state.formStatesArr} />
       </div>
     );
