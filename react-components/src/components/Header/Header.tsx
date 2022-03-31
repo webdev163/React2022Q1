@@ -10,6 +10,9 @@ export default class Header extends Component {
         <NavLink to="/" className={styles.link} data-testid="main-link">
           Главная
         </NavLink>
+        <NavLink to="/form" className={styles.link} data-testid="form-link">
+          Форма
+        </NavLink>
         <NavLink to="/about" className={styles.link} data-testid="about-link">
           О нас
         </NavLink>
