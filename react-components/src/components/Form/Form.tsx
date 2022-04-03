@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { FormRef, FormData } from '../../utils/types';
 import { FormProps, FormState } from './types';
 import { fileReader } from '../../utils/fileReader';
-import RequiredMessage from '../Validation/RequiredMessage';
-import AgreeMessage from '../Validation/AgreeMessage';
-import ShortMessage from '../Validation/ShortMessage';
-import InvalidMessage from '../Validation/InvalidMessage';
-import InvalidDateMessage from '../Validation/InvalidDateMessage';
 import Modal from '../Modal';
 import { ErrorTypes, FormFieldTypes } from '../../utils/types';
+import NameInput from '../UI/NameInput';
+import DateInput from '../UI/DateInput';
+import DeliverySelect from '../UI/DeliverySelect';
+import TimeCheckbox from '../UI/TimeCheckbox';
+import FileInput from '../UI/FileInput';
+import AgreeCheckbox from '../UI/AgreeCheckbox';
+import SubmitButton from '../UI/SubmitButton/SubmitButton';
 
 import styles from './Form.module.scss';
 
@@ -19,6 +21,7 @@ export default class Form extends Component<FormProps, FormState> {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModalActive = this.toggleModalActive.bind(this);
+    this.hideValidationErr = this.hideValidationErr.bind(this);
     this.state = {
       errorsArr: [],
       isButtonDisabled: true,
@@ -153,98 +156,36 @@ export default class Form extends Component<FormProps, FormState> {
     return (
       <div>
         <form className={styles.form} ref={this.formRef.common} onSubmit={this.handleSubmit}>
-          <label className={styles.label}>
-            <span className={styles.text}>Имя:</span>
-            <input
-              className={styles.input}
-              type="text"
-              name={FormFieldTypes.NAME}
-              ref={this.formRef.name}
-              onChange={(e) => this.hideValidationErr(e)}
-            />
-            {this.state.errorsArr.includes(ErrorTypes.NAME_REQUIRED) && <RequiredMessage />}
-            {this.state.errorsArr.includes(ErrorTypes.NAME_SHORT) && <ShortMessage />}
-            {this.state.errorsArr.includes(ErrorTypes.NAME_INVALID) && <InvalidMessage />}
-          </label>
-          <label className={styles.label}>
-            <span className={styles.text}>Дата доставки:</span>
-            <input
-              className={styles.input}
-              type="date"
-              name={FormFieldTypes.DATE}
-              ref={this.formRef.date}
-              onChange={(e) => this.hideValidationErr(e)}
-            />
-            {this.state.errorsArr.includes(ErrorTypes.DATE_REQUIRED) && <RequiredMessage />}
-            {this.state.errorsArr.includes(ErrorTypes.DATE_INVALID) && <InvalidDateMessage />}
-          </label>
-          <label className={styles.label}>
-            <span className={styles.text}>Тип доставки:</span>
-            <select
-              name={FormFieldTypes.DELIVERY}
-              ref={this.formRef.delivery}
-              className={styles.select}
-              onChange={(e) => this.hideValidationErr(e)}
-              defaultValue={'default'}
-            >
-              <option disabled value="default">
-                Выберите тип доставки
-              </option>
-              <option>доставка до двери</option>
-              <option>доставка до постамата</option>
-              <option>самовывоз</option>
-            </select>
-            {this.state.errorsArr.includes(ErrorTypes.DELIVERY_REQUIRED) && <RequiredMessage />}
-          </label>
-          <label className={styles.label}>
-            <span className={styles.text}>Время доставки:</span>
-            <div className={styles.slide}>
-              <label className="label-checkbox" htmlFor="checkbox-call">
-                дневное
-              </label>
-              <input
-                className="slide-checkbox"
-                type="checkbox"
-                name={FormFieldTypes.TIME}
-                id="checkbox-call"
-                ref={this.formRef.time}
-              />
-              <label className="custom-checkbox" htmlFor="checkbox-call"></label>
-              <label className="label-checkbox" htmlFor="checkbox-call">
-                вечернее
-              </label>
-            </div>
-          </label>
-          <label className={styles.label}>
-            <span className={styles.text}>
-              Доп. информация <br /> (фото):
-            </span>
-            <input
-              type="file"
-              name={FormFieldTypes.IMAGE}
-              ref={this.formRef.image}
-              onChange={(e) => this.hideValidationErr(e)}
-            />
-            {this.state.errorsArr.includes(ErrorTypes.IMAGE_REQUIRED) && <RequiredMessage />}
-          </label>
-          <div className={styles.agree}>
-            <input
-              type="checkbox"
-              name={FormFieldTypes.AGREE}
-              id="agree"
-              ref={this.formRef.agree}
-              onChange={(e) => this.hideValidationErr(e)}
-            />
-            <label htmlFor="agree">согласен на обработку персональных данных</label>
-            {this.state.errorsArr.includes(ErrorTypes.AGREE_REQUIRED) && <AgreeMessage />}
-          </div>
-          <button
-            type="submit"
-            className={styles.button}
-            disabled={this.state.isButtonDisabled || this.state.errorsArr.length > 0}
-          >
-            Оформить заказ
-          </button>
+          <NameInput
+            forwardRef={this.formRef.name}
+            errorsArr={this.state.errorsArr}
+            hideValidationErr={this.hideValidationErr}
+          />
+          <DateInput
+            forwardRef={this.formRef.date}
+            errorsArr={this.state.errorsArr}
+            hideValidationErr={this.hideValidationErr}
+          />
+          <DeliverySelect
+            forwardRef={this.formRef.delivery}
+            errorsArr={this.state.errorsArr}
+            hideValidationErr={this.hideValidationErr}
+          />
+          <TimeCheckbox forwardRef={this.formRef.time} />
+          <FileInput
+            forwardRef={this.formRef.image}
+            errorsArr={this.state.errorsArr}
+            hideValidationErr={this.hideValidationErr}
+          />
+          <AgreeCheckbox
+            forwardRef={this.formRef.agree}
+            errorsArr={this.state.errorsArr}
+            hideValidationErr={this.hideValidationErr}
+          />
+          <SubmitButton
+            isButtonDisabled={this.state.isButtonDisabled}
+            errorsArr={this.state.errorsArr}
+          />
         </form>
         <Modal isActive={this.state.isModalActive} toggleModalActive={this.toggleModalActive} />
       </div>
