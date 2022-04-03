@@ -9,6 +9,7 @@ import styles from './NameInput.module.scss';
 
 export default class NameInput extends Component<NameInputProps, Record<string, never>> {
   render() {
+    const { forwardRef, errorsArr, errReset } = this.props;
     return (
       <label className="label">
         <span className="label-text">Имя:</span>
@@ -16,12 +17,12 @@ export default class NameInput extends Component<NameInputProps, Record<string, 
           className={styles.input}
           type="text"
           name={FormFieldTypes.NAME}
-          ref={this.props.forwardRef}
-          onChange={(e) => this.props.hideValidationErr(e)}
+          ref={forwardRef}
+          onChange={(e) => errReset(e)}
         />
-        {this.props.errorsArr.includes(ErrorTypes.NAME_REQUIRED) && <RequiredMessage />}
-        {this.props.errorsArr.includes(ErrorTypes.NAME_SHORT) && <ShortMessage />}
-        {this.props.errorsArr.includes(ErrorTypes.NAME_INVALID) && <InvalidMessage />}
+        {errorsArr.includes(ErrorTypes.NAME_REQUIRED) && <RequiredMessage />}
+        {errorsArr.includes(ErrorTypes.NAME_SHORT) && <ShortMessage />}
+        {errorsArr.includes(ErrorTypes.NAME_INVALID) && <InvalidMessage />}
       </label>
     );
   }

@@ -8,6 +8,7 @@ import styles from './DateInput.module.scss';
 
 export default class DateInput extends Component<DateInputProps, Record<string, never>> {
   render() {
+    const { forwardRef, errorsArr, errReset } = this.props;
     return (
       <label className="label">
         <span className="label-text">Дата доставки:</span>
@@ -15,11 +16,11 @@ export default class DateInput extends Component<DateInputProps, Record<string, 
           className={styles.input}
           type="date"
           name={FormFieldTypes.DATE}
-          ref={this.props.forwardRef}
-          onChange={(e) => this.props.hideValidationErr(e)}
+          ref={forwardRef}
+          onChange={(e) => errReset(e)}
         />
-        {this.props.errorsArr.includes(ErrorTypes.DATE_REQUIRED) && <RequiredMessage />}
-        {this.props.errorsArr.includes(ErrorTypes.DATE_INVALID) && <InvalidDateMessage />}
+        {errorsArr.includes(ErrorTypes.DATE_REQUIRED) && <RequiredMessage />}
+        {errorsArr.includes(ErrorTypes.DATE_INVALID) && <InvalidDateMessage />}
       </label>
     );
   }

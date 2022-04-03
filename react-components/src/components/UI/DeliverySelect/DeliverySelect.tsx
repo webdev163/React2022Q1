@@ -7,14 +7,15 @@ import styles from './DeliverySelect.module.scss';
 
 export default class DeliverySelect extends Component<DeliverySelectProps, Record<string, never>> {
   render() {
+    const { forwardRef, errorsArr, errReset } = this.props;
     return (
       <label className="label">
         <span className="label-text">Тип доставки:</span>
         <select
           name={FormFieldTypes.DELIVERY}
-          ref={this.props.forwardRef}
+          ref={forwardRef}
           className={styles.select}
-          onChange={(e) => this.props.hideValidationErr(e)}
+          onChange={(e) => errReset(e)}
           defaultValue={'default'}
         >
           <option disabled value="default">
@@ -24,7 +25,7 @@ export default class DeliverySelect extends Component<DeliverySelectProps, Recor
           <option>доставка до постамата</option>
           <option>самовывоз</option>
         </select>
-        {this.props.errorsArr.includes(ErrorTypes.DELIVERY_REQUIRED) && <RequiredMessage />}
+        {errorsArr.includes(ErrorTypes.DELIVERY_REQUIRED) && <RequiredMessage />}
       </label>
     );
   }

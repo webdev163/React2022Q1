@@ -6,6 +6,7 @@ import styles from './TimeCheckbox.module.scss';
 
 export default class TimeCheckbox extends Component<TimeCheckboxProps, Record<string, never>> {
   render() {
+    const { forwardRef } = this.props;
     return (
       <label className="label">
         <span className="label-text">Время доставки:</span>
@@ -18,7 +19,7 @@ export default class TimeCheckbox extends Component<TimeCheckboxProps, Record<st
             type="checkbox"
             name={FormFieldTypes.TIME}
             id="checkbox-call"
-            ref={this.props.forwardRef}
+            ref={forwardRef}
           />
           <label className="custom-checkbox" htmlFor="checkbox-call"></label>
           <label className="label-checkbox" htmlFor="checkbox-call">

@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { FormRef, FormData } from '../../utils/types';
+import React, { Component, createRef } from 'react';
+import { FormRef, FormData, ErrorTypes, FormFieldTypes } from '../../utils/types';
 import { FormProps, FormState } from './types';
 import { fileReader } from '../../utils/fileReader';
 import Modal from '../Modal';
-import { ErrorTypes, FormFieldTypes } from '../../utils/types';
 import NameInput from '../UI/NameInput';
 import DateInput from '../UI/DateInput';
 import DeliverySelect from '../UI/DeliverySelect';
@@ -21,20 +20,20 @@ export default class Form extends Component<FormProps, FormState> {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModalActive = this.toggleModalActive.bind(this);
-    this.hideValidationErr = this.hideValidationErr.bind(this);
+    this.errReset = this.errReset.bind(this);
     this.state = {
       errorsArr: [],
       isButtonDisabled: true,
       isModalActive: false,
     };
     this.formRef = {
-      common: React.createRef(),
-      name: React.createRef(),
-      date: React.createRef(),
-      delivery: React.createRef(),
-      time: React.createRef(),
-      image: React.createRef(),
-      agree: React.createRef(),
+      common: createRef(),
+      name: createRef(),
+      date: createRef(),
+      delivery: createRef(),
+      time: createRef(),
+      image: createRef(),
+      agree: createRef(),
     };
   }
 
@@ -64,10 +63,9 @@ export default class Form extends Component<FormProps, FormState> {
     }
   }
 
-  hideValidationErr(e: React.ChangeEvent) {
+  errReset(e: React.ChangeEvent) {
     this.setState({ isButtonDisabled: false });
     const currElem = e.target as HTMLInputElement;
-
     switch (currElem.name) {
       case FormFieldTypes.NAME:
         this.setState({
@@ -81,7 +79,6 @@ export default class Form extends Component<FormProps, FormState> {
           ],
         });
         break;
-
       case FormFieldTypes.DATE:
         this.setState({
           errorsArr: [
@@ -91,25 +88,21 @@ export default class Form extends Component<FormProps, FormState> {
           ],
         });
         break;
-
       case FormFieldTypes.DELIVERY:
         this.setState({
           errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.DELIVERY_REQUIRED)],
         });
         break;
-
       case FormFieldTypes.IMAGE:
         this.setState({
           errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.IMAGE_REQUIRED)],
         });
         break;
-
       case FormFieldTypes.AGREE:
         this.setState({
           errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.AGREE_REQUIRED)],
         });
         break;
-
       default:
         break;
     }
@@ -153,39 +146,18 @@ export default class Form extends Component<FormProps, FormState> {
   }
 
   render() {
+    const { errorsArr, isButtonDisabled } = this.state;
+    const { name, date, delivery, time, image, agree } = this.formRef;
     return (
       <div>
         <form className={styles.form} ref={this.formRef.common} onSubmit={this.handleSubmit}>
-          <NameInput
-            forwardRef={this.formRef.name}
-            errorsArr={this.state.errorsArr}
-            hideValidationErr={this.hideValidationErr}
-          />
-          <DateInput
-            forwardRef={this.formRef.date}
-            errorsArr={this.state.errorsArr}
-            hideValidationErr={this.hideValidationErr}
-          />
-          <DeliverySelect
-            forwardRef={this.formRef.delivery}
-            errorsArr={this.state.errorsArr}
-            hideValidationErr={this.hideValidationErr}
-          />
-          <TimeCheckbox forwardRef={this.formRef.time} />
-          <FileInput
-            forwardRef={this.formRef.image}
-            errorsArr={this.state.errorsArr}
-            hideValidationErr={this.hideValidationErr}
-          />
-          <AgreeCheckbox
-            forwardRef={this.formRef.agree}
-            errorsArr={this.state.errorsArr}
-            hideValidationErr={this.hideValidationErr}
-          />
-          <SubmitButton
-            isButtonDisabled={this.state.isButtonDisabled}
-            errorsArr={this.state.errorsArr}
-          />
+          <NameInput forwardRef={name} errorsArr={errorsArr} errReset={this.errReset} />
+          <DateInput forwardRef={date} errorsArr={errorsArr} errReset={this.errReset} />
+          <DeliverySelect forwardRef={delivery} errorsArr={errorsArr} errReset={this.errReset} />
+          <TimeCheckbox forwardRef={time} />
+          <FileInput forwardRef={image} errorsArr={errorsArr} errReset={this.errReset} />
+          <AgreeCheckbox forwardRef={agree} errorsArr={errorsArr} errReset={this.errReset} />
+          <SubmitButton isButtonDisabled={isButtonDisabled} errorsArr={errorsArr} />
         </form>
         <Modal isActive={this.state.isModalActive} toggleModalActive={this.toggleModalActive} />
       </div>

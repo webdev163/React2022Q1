@@ -1,5 +1,5 @@
 export interface FileInputProps {
   forwardRef: React.RefObject<HTMLInputElement>;
   errorsArr: string[];
-  hideValidationErr: (e: React.ChangeEvent) => void;
+  errReset: (e: React.ChangeEvent) => void;
 }

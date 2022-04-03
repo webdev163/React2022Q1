@@ -7,17 +7,18 @@ import styles from './AgreeCheckbox.module.scss';
 
 export default class AgreeCheckbox extends Component<AgreeCheckboxProps, Record<string, never>> {
   render() {
+    const { forwardRef, errorsArr, errReset } = this.props;
     return (
       <div className={styles.agree}>
         <input
           type="checkbox"
           name={FormFieldTypes.AGREE}
           id="agree"
-          ref={this.props.forwardRef}
-          onChange={(e) => this.props.hideValidationErr(e)}
+          ref={forwardRef}
+          onChange={(e) => errReset(e)}
         />
         <label htmlFor="agree">согласен на обработку персональных данных</label>
-        {this.props.errorsArr.includes(ErrorTypes.AGREE_REQUIRED) && <AgreeMessage />}
+        {errorsArr.includes(ErrorTypes.AGREE_REQUIRED) && <AgreeMessage />}
       </div>
     );
   }

@@ -5,11 +5,12 @@ import styles from './SubmitButton.module.scss';
 
 export default class SubmitButton extends Component<SubmitButtonProps, Record<string, never>> {
   render() {
+    const { isButtonDisabled, errorsArr } = this.props;
     return (
       <button
         type="submit"
         className={styles.button}
-        disabled={this.props.isButtonDisabled || this.props.errorsArr.length > 0}
+        disabled={isButtonDisabled || errorsArr.length > 0}
       >
         Оформить заказ
       </button>

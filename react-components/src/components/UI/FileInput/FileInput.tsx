@@ -5,6 +5,7 @@ import RequiredMessage from '../../Validation/RequiredMessage';
 
 export default class FileInput extends Component<FileInputProps, Record<string, never>> {
   render() {
+    const { forwardRef, errorsArr, errReset } = this.props;
     return (
       <label className="label">
         <span className="label-text">
@@ -13,10 +14,10 @@ export default class FileInput extends Component<FileInputProps, Record<string, 
         <input
           type="file"
           name={FormFieldTypes.IMAGE}
-          ref={this.props.forwardRef}
-          onChange={(e) => this.props.hideValidationErr(e)}
+          ref={forwardRef}
+          onChange={(e) => errReset(e)}
         />
-        {this.props.errorsArr.includes(ErrorTypes.IMAGE_REQUIRED) && <RequiredMessage />}
+        {errorsArr.includes(ErrorTypes.IMAGE_REQUIRED) && <RequiredMessage />}
       </label>
     );
   }
