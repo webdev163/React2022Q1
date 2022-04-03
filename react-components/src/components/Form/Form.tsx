@@ -8,6 +8,7 @@ import ShortMessage from '../Validation/ShortMessage';
 import InvalidMessage from '../Validation/InvalidMessage';
 import InvalidDateMessage from '../Validation/InvalidDateMessage';
 import Modal from '../Modal';
+import { ErrorTypes } from '../../utils/types';
 
 import styles from './Form.module.scss';
 
@@ -47,16 +48,16 @@ export default class Form extends Component<FormProps, FormState> {
       !new RegExp(/[^a-zA-Z]+/g).test(fields.name) &&
       fields.name.length < 3
     ) {
-      this.setState({ errorsArr: [...this.state.errorsArr, 'name:short'] });
+      this.setState({ errorsArr: [...this.state.errorsArr, ErrorTypes.NAME_SHORT] });
     }
     if (fields.name.length && new RegExp(/[^a-zA-Z]+/g).test(fields.name)) {
-      this.setState({ errorsArr: [...this.state.errorsArr, 'name:invalid'] });
+      this.setState({ errorsArr: [...this.state.errorsArr, ErrorTypes.NAME_INVALID] });
     }
     if (fields.date && Date.parse(fields.date) - Number(new Date()) < 0) {
-      this.setState({ errorsArr: [...this.state.errorsArr, 'date:invalid'] });
+      this.setState({ errorsArr: [...this.state.errorsArr, ErrorTypes.DATE_INVALID] });
     }
     if (fields.delivery === 'default') {
-      this.setState({ errorsArr: [...this.state.errorsArr, 'delivery'] });
+      this.setState({ errorsArr: [...this.state.errorsArr, ErrorTypes.DELIVERY_REQUIRED] });
     }
   }
 
@@ -67,29 +68,36 @@ export default class Form extends Component<FormProps, FormState> {
       this.setState({
         errorsArr: [
           ...this.state.errorsArr.filter(
-            (el) => el !== 'name' && el !== 'name:short' && el !== 'name:invalid'
+            (el) =>
+              el !== ErrorTypes.NAME_REQUIRED &&
+              el !== ErrorTypes.NAME_SHORT &&
+              el !== ErrorTypes.NAME_INVALID
           ),
         ],
       });
     }
     if (currElem.name === 'date') {
       this.setState({
-        errorsArr: [...this.state.errorsArr.filter((el) => el !== 'date' && el !== 'date:invalid')],
+        errorsArr: [
+          ...this.state.errorsArr.filter(
+            (el) => el !== ErrorTypes.DATE_REQUIRED && el !== ErrorTypes.DATE_INVALID
+          ),
+        ],
       });
     }
     if (currElem.name === 'delivery') {
       this.setState({
-        errorsArr: [...this.state.errorsArr.filter((el) => el !== 'delivery')],
+        errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.DELIVERY_REQUIRED)],
       });
     }
     if (currElem.name === 'image') {
       this.setState({
-        errorsArr: [...this.state.errorsArr.filter((el) => el !== 'image')],
+        errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.IMAGE_REQUIRED)],
       });
     }
     if (currElem.name === 'agree') {
       this.setState({
-        errorsArr: [...this.state.errorsArr.filter((el) => el !== 'agree')],
+        errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.AGREE_REQUIRED)],
       });
     }
   }
@@ -144,9 +152,9 @@ export default class Form extends Component<FormProps, FormState> {
               ref={this.formRef.name}
               onChange={(e) => this.hideValidationErr(e)}
             />
-            {this.state.errorsArr.includes('name') && <RequiredMessage />}
-            {this.state.errorsArr.includes('name:short') && <ShortMessage />}
-            {this.state.errorsArr.includes('name:invalid') && <InvalidMessage />}
+            {this.state.errorsArr.includes(ErrorTypes.NAME_REQUIRED) && <RequiredMessage />}
+            {this.state.errorsArr.includes(ErrorTypes.NAME_SHORT) && <ShortMessage />}
+            {this.state.errorsArr.includes(ErrorTypes.NAME_INVALID) && <InvalidMessage />}
           </label>
           <label className={styles.label}>
             <span className={styles.text}>Дата доставки:</span>
@@ -157,8 +165,8 @@ export default class Form extends Component<FormProps, FormState> {
               ref={this.formRef.date}
               onChange={(e) => this.hideValidationErr(e)}
             />
-            {this.state.errorsArr.includes('date') && <RequiredMessage />}
-            {this.state.errorsArr.includes('date:invalid') && <InvalidDateMessage />}
+            {this.state.errorsArr.includes(ErrorTypes.DATE_REQUIRED) && <RequiredMessage />}
+            {this.state.errorsArr.includes(ErrorTypes.DATE_INVALID) && <InvalidDateMessage />}
           </label>
           <label className={styles.label}>
             <span className={styles.text}>Тип доставки:</span>
@@ -176,7 +184,7 @@ export default class Form extends Component<FormProps, FormState> {
               <option>доставка до постамата</option>
               <option>самовывоз</option>
             </select>
-            {this.state.errorsArr.includes('delivery') && <RequiredMessage />}
+            {this.state.errorsArr.includes(ErrorTypes.DELIVERY_REQUIRED) && <RequiredMessage />}
           </label>
           <label className={styles.label}>
             <span className={styles.text}>Время доставки:</span>
@@ -207,7 +215,7 @@ export default class Form extends Component<FormProps, FormState> {
               ref={this.formRef.image}
               onChange={(e) => this.hideValidationErr(e)}
             />
-            {this.state.errorsArr.includes('image') && <RequiredMessage />}
+            {this.state.errorsArr.includes(ErrorTypes.IMAGE_REQUIRED) && <RequiredMessage />}
           </label>
           <div className={styles.agree}>
             <input
@@ -218,7 +226,7 @@ export default class Form extends Component<FormProps, FormState> {
               onChange={(e) => this.hideValidationErr(e)}
             />
             <label htmlFor="agree">согласен на обработку персональных данных</label>
-            {this.state.errorsArr.includes('agree') && <AgreeMessage />}
+            {this.state.errorsArr.includes(ErrorTypes.AGREE_REQUIRED) && <AgreeMessage />}
           </div>
           <button
             type="submit"

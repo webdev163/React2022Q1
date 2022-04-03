@@ -25,3 +25,14 @@ export interface FormData {
   image: string | null;
   agree: boolean;
 }
+
+export enum ErrorTypes {
+  NAME_REQUIRED = 'name',
+  NAME_SHORT = 'name:short',
+  NAME_INVALID = 'name:invalid',
+  DATE_REQUIRED = 'date',
+  DATE_INVALID = 'date:invalid',
+  DELIVERY_REQUIRED = 'delivery',
+  IMAGE_REQUIRED = 'image',
+  AGREE_REQUIRED = 'agree',
+}
