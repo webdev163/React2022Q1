@@ -8,7 +8,7 @@ import ShortMessage from '../Validation/ShortMessage';
 import InvalidMessage from '../Validation/InvalidMessage';
 import InvalidDateMessage from '../Validation/InvalidDateMessage';
 import Modal from '../Modal';
-import { ErrorTypes } from '../../utils/types';
+import { ErrorTypes, FormFieldTypes } from '../../utils/types';
 
 import styles from './Form.module.scss';
 
@@ -64,41 +64,51 @@ export default class Form extends Component<FormProps, FormState> {
   hideValidationErr(e: React.ChangeEvent) {
     this.setState({ isButtonDisabled: false });
     const currElem = e.target as HTMLInputElement;
-    if (currElem.name === 'name') {
-      this.setState({
-        errorsArr: [
-          ...this.state.errorsArr.filter(
-            (el) =>
-              el !== ErrorTypes.NAME_REQUIRED &&
-              el !== ErrorTypes.NAME_SHORT &&
-              el !== ErrorTypes.NAME_INVALID
-          ),
-        ],
-      });
-    }
-    if (currElem.name === 'date') {
-      this.setState({
-        errorsArr: [
-          ...this.state.errorsArr.filter(
-            (el) => el !== ErrorTypes.DATE_REQUIRED && el !== ErrorTypes.DATE_INVALID
-          ),
-        ],
-      });
-    }
-    if (currElem.name === 'delivery') {
-      this.setState({
-        errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.DELIVERY_REQUIRED)],
-      });
-    }
-    if (currElem.name === 'image') {
-      this.setState({
-        errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.IMAGE_REQUIRED)],
-      });
-    }
-    if (currElem.name === 'agree') {
-      this.setState({
-        errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.AGREE_REQUIRED)],
-      });
+
+    switch (currElem.name) {
+      case FormFieldTypes.NAME:
+        this.setState({
+          errorsArr: [
+            ...this.state.errorsArr.filter(
+              (el) =>
+                el !== ErrorTypes.NAME_REQUIRED &&
+                el !== ErrorTypes.NAME_SHORT &&
+                el !== ErrorTypes.NAME_INVALID
+            ),
+          ],
+        });
+        break;
+
+      case FormFieldTypes.DATE:
+        this.setState({
+          errorsArr: [
+            ...this.state.errorsArr.filter(
+              (el) => el !== ErrorTypes.DATE_REQUIRED && el !== ErrorTypes.DATE_INVALID
+            ),
+          ],
+        });
+        break;
+
+      case FormFieldTypes.DELIVERY:
+        this.setState({
+          errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.DELIVERY_REQUIRED)],
+        });
+        break;
+
+      case FormFieldTypes.IMAGE:
+        this.setState({
+          errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.IMAGE_REQUIRED)],
+        });
+        break;
+
+      case FormFieldTypes.AGREE:
+        this.setState({
+          errorsArr: [...this.state.errorsArr.filter((el) => el !== ErrorTypes.AGREE_REQUIRED)],
+        });
+        break;
+
+      default:
+        break;
     }
   }
 
@@ -148,7 +158,7 @@ export default class Form extends Component<FormProps, FormState> {
             <input
               className={styles.input}
               type="text"
-              name="name"
+              name={FormFieldTypes.NAME}
               ref={this.formRef.name}
               onChange={(e) => this.hideValidationErr(e)}
             />
@@ -161,7 +171,7 @@ export default class Form extends Component<FormProps, FormState> {
             <input
               className={styles.input}
               type="date"
-              name="date"
+              name={FormFieldTypes.DATE}
               ref={this.formRef.date}
               onChange={(e) => this.hideValidationErr(e)}
             />
@@ -171,7 +181,7 @@ export default class Form extends Component<FormProps, FormState> {
           <label className={styles.label}>
             <span className={styles.text}>Тип доставки:</span>
             <select
-              name="delivery"
+              name={FormFieldTypes.DELIVERY}
               ref={this.formRef.delivery}
               className={styles.select}
               onChange={(e) => this.hideValidationErr(e)}
@@ -195,7 +205,7 @@ export default class Form extends Component<FormProps, FormState> {
               <input
                 className="slide-checkbox"
                 type="checkbox"
-                name="time"
+                name={FormFieldTypes.TIME}
                 id="checkbox-call"
                 ref={this.formRef.time}
               />
@@ -211,7 +221,7 @@ export default class Form extends Component<FormProps, FormState> {
             </span>
             <input
               type="file"
-              name="image"
+              name={FormFieldTypes.IMAGE}
               ref={this.formRef.image}
               onChange={(e) => this.hideValidationErr(e)}
             />
@@ -220,7 +230,7 @@ export default class Form extends Component<FormProps, FormState> {
           <div className={styles.agree}>
             <input
               type="checkbox"
-              name="agree"
+              name={FormFieldTypes.AGREE}
               id="agree"
               ref={this.formRef.agree}
               onChange={(e) => this.hideValidationErr(e)}

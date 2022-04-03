@@ -26,6 +26,15 @@ export interface FormData {
   agree: boolean;
 }
 
+export enum FormFieldTypes {
+  NAME = 'name',
+  DATE = 'date',
+  DELIVERY = 'delivery',
+  TIME = 'time',
+  IMAGE = 'image',
+  AGREE = 'agree',
+}
+
 export enum ErrorTypes {
   NAME_REQUIRED = 'name',
   NAME_SHORT = 'name:short',
