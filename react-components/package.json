@@ -21,7 +21,7 @@
     "start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
     "test": "react-scripts test",
-    "test-cv": "react-scripts test --coverage",
+    "test-cv": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss}\"",
     "lint": "eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",

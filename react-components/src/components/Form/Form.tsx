@@ -41,7 +41,7 @@ export default class Form extends Component<FormProps, FormState> {
     this.setState({ errorsArr: [] });
     const keys = Object.keys(fields);
     keys.forEach((el: string) => {
-      if (!fields[el as keyof typeof fields]) {
+      if (!fields[el as keyof typeof fields] || fields[el as keyof typeof fields] === '') {
         this.setState({ errorsArr: [...this.state.errorsArr, el] });
       }
     });
@@ -150,7 +150,12 @@ export default class Form extends Component<FormProps, FormState> {
     const { name, date, delivery, time, image, agree } = this.formRef;
     return (
       <div>
-        <form className={styles.form} ref={this.formRef.common} onSubmit={this.handleSubmit}>
+        <form
+          className={styles.form}
+          ref={this.formRef.common}
+          onSubmit={this.handleSubmit}
+          data-testid="form"
+        >
           <NameInput forwardRef={name} errorsArr={errorsArr} errReset={this.errReset} />
           <DateInput forwardRef={date} errorsArr={errorsArr} errReset={this.errReset} />
           <DeliverySelect forwardRef={delivery} errorsArr={errorsArr} errReset={this.errReset} />

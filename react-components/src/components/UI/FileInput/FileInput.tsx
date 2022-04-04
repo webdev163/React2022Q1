@@ -16,6 +16,7 @@ export default class FileInput extends Component<FileInputProps, Record<string, 
           name={FormFieldTypes.IMAGE}
           ref={forwardRef}
           onChange={(e) => errReset(e)}
+          data-testid="file-input"
         />
         {errorsArr.includes(ErrorTypes.IMAGE_REQUIRED) && <RequiredMessage />}
       </label>
