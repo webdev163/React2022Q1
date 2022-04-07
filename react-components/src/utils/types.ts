@@ -88,13 +88,15 @@ export interface GuardianResponseItem {
 }
 
 export interface GuardianResponse {
-  status: string;
-  userTier: string;
-  total: number;
-  startIndex: number;
-  pageSize: number;
-  currentPage: number;
-  pages: number;
-  orderBy: string;
-  results: GuardianResponseItem[];
+  response: {
+    status: string;
+    userTier: string;
+    total: number;
+    startIndex: number;
+    pageSize: number;
+    currentPage: number;
+    pages: number;
+    orderBy: string;
+    results: GuardianResponseItem[];
+  };
 }

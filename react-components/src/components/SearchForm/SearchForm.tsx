@@ -12,7 +12,9 @@ export default class SearchForm extends Component<SearchFormProps, SearchFormSta
   }
 
   componentDidMount() {
-    this.setState({ formValue: localStorage.getItem('webdev163-search-query') || '' });
+    const prevValue = localStorage.getItem('webdev163-search-query') || '';
+    this.props.setQuery(prevValue);
+    this.setState({ formValue: prevValue });
   }
 
   setFormValue(e: React.ChangeEvent<HTMLInputElement>) {
@@ -28,7 +30,7 @@ export default class SearchForm extends Component<SearchFormProps, SearchFormSta
 
   render() {
     return (
-      <form action="" className={styles.form} onSubmit={(e: React.FormEvent) => this.onSubmit(e)}>
+      <form className={styles.form} onSubmit={(e: React.FormEvent) => this.onSubmit(e)}>
         <input
           name="search"
           type="text"
