@@ -6,7 +6,7 @@ export default class Page404 extends Component {
   render() {
     return (
       <div className={styles.wrapper} data-testid="error-page">
-        <p>Запрашиваемая страница не найдена</p>
+        <p>Page not found</p>
         <img src="/img/sad.png" width="341" height="311" alt="" />
       </div>
     );

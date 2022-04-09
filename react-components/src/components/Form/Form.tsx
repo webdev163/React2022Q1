@@ -2,7 +2,7 @@ import React, { Component, createRef } from 'react';
 import { FormRef, FormData, ErrorTypes, FormFieldTypes } from '../../utils/types';
 import { FormProps, FormState } from './types';
 import { fileReader } from '../../utils/fileReader';
-import Modal from '../Modal';
+import FormModal from '../FormModal';
 import NameInput from '../UI/NameInput';
 import DateInput from '../UI/DateInput';
 import DeliverySelect from '../UI/DeliverySelect';
@@ -164,7 +164,7 @@ export default class Form extends Component<FormProps, FormState> {
           <AgreeCheckbox forwardRef={agree} errorsArr={errorsArr} errReset={this.errReset} />
           <SubmitButton isButtonDisabled={isButtonDisabled} errorsArr={errorsArr} />
         </form>
-        <Modal isActive={this.state.isModalActive} toggleModalActive={this.toggleModalActive} />
+        <FormModal isActive={this.state.isModalActive} toggleModalActive={this.toggleModalActive} />
       </div>
     );
   }

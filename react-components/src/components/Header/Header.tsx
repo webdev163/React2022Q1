@@ -8,13 +8,13 @@ export default class Header extends Component {
     return (
       <div className={styles.wrapper}>
         <NavLink to="/" className={styles.link} data-testid="main-link">
-          Главная
+          Main
         </NavLink>
         <NavLink to="/form" className={styles.link} data-testid="form-link">
-          Форма
+          Form
         </NavLink>
         <NavLink to="/about" className={styles.link} data-testid="about-link">
-          О нас
+          About us
         </NavLink>
       </div>
     );

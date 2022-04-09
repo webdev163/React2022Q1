@@ -40,7 +40,7 @@ export default class SearchForm extends Component<SearchFormProps, SearchFormSta
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setFormValue(e)}
         />
         <button type="submit" className={styles.button}>
-          Найти
+          Find
         </button>
       </form>
     );

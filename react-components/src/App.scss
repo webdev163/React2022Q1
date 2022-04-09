@@ -170,6 +170,11 @@ input[type=file]::file-selector-button {
   color: red;
 }
 
+.errorMsg {
+  text-align: center;
+  margin-top: 50px;
+}
+
 .error-agree {
   left: 3px;
 }
@@ -186,4 +191,30 @@ input[type=file]::file-selector-button {
 
 .label-text {
   margin-right: 20px;
+}
+
+// Guardian styling
+
+.element-image {
+  max-width: 1000px;
+  margin: 25px auto;
+}
+
+.element-image__caption,
+.element-image__credit {
+  font-size: 15px;
+}
+
+.element-embed,
+.element-interactive,
+.element-atom {
+  display: none;
+}
+
+ul {
+  padding-left: 0;
+  & li::marker {
+    display: none;
+    color: #fff;
+  }
 }
