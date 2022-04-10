@@ -100,3 +100,11 @@ export interface GuardianResponse {
     results: GuardianResponseItem[];
   };
 }
+
+export interface ModalData {
+  body: string;
+  thumbnail: string;
+  standfirst: string;
+  webPublicationDate: string;
+  shortUrl: string;
+}
