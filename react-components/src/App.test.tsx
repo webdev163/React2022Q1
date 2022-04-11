@@ -58,23 +58,17 @@ describe('Local storage', () => {
     input = screen.getByPlaceholderText(/Поиск/i);
   });
 
-  it('should save input value to localstorage', () => {
+  it('should save/read input value to/from localstorage', () => {
     expect(input).toContainHTML('');
     userEvent.type(input, value);
     expect(input).toContainHTML(value);
-
     const aboutLink = screen.getByTestId('about-link');
+    const button = screen.getByRole('button', {
+      name: /find/i,
+    });
+    userEvent.click(button);
     userEvent.click(aboutLink);
     expect(setItemMock).toHaveBeenCalledWith(key, value);
-  });
-
-  it('should read input value from localstorage', () => {
-    expect(input).toContainHTML('');
-    userEvent.type(input, value);
-    expect(input).toContainHTML(value);
-
-    const aboutLink = screen.getByTestId('about-link');
-    userEvent.click(aboutLink);
 
     const mainLink = screen.getByTestId('main-link');
     userEvent.click(mainLink);
