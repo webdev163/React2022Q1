@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FileInputProps } from './types';
-import { ErrorTypes, FormFieldTypes } from '../../../utils/types';
-import RequiredMessage from '../../Validation/RequiredMessage';
+import { ErrorTypes, FormFieldTypes, ErrorMessages } from '../../../utils/types';
+import ErrorMessage from '../../FormErrorMessage';
 
 export default class FileInput extends Component<FileInputProps, Record<string, never>> {
   render() {
@@ -18,7 +18,9 @@ export default class FileInput extends Component<FileInputProps, Record<string, 
           onChange={(e) => errReset(e)}
           data-testid="file-input"
         />
-        {errorsArr.includes(ErrorTypes.IMAGE_REQUIRED) && <RequiredMessage />}
+        {errorsArr.includes(ErrorTypes.IMAGE_REQUIRED) && (
+          <ErrorMessage text={ErrorMessages.IMAGE_REQUIRED} />
+        )}
       </label>
     );
   }

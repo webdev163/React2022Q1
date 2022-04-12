@@ -46,6 +46,17 @@ export enum ErrorTypes {
   AGREE_REQUIRED = 'agree',
 }
 
+export enum ErrorMessages {
+  NAME_REQUIRED = 'Это поле не может быть пустым',
+  NAME_SHORT = 'Это поле не может быть менее 3 символов',
+  NAME_INVALID = 'Поле содержит недопустимые символы или цифры',
+  DATE_REQUIRED = 'Это поле не может быть пустым',
+  DATE_INVALID = 'Необходимо указать дату в будущем',
+  DELIVERY_REQUIRED = 'Это поле не может быть пустым',
+  IMAGE_REQUIRED = 'Это поле не может быть пустым',
+  AGREE_REQUIRED = 'Необходимо согласиться с обработкой персональных данных',
+}
+
 export interface GuardianResponseItem {
   id: string;
   type: string;
