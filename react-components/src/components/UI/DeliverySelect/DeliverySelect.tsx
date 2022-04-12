@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DeliverySelectProps } from './types';
-import { ErrorTypes, FormFieldTypes } from '../../../utils/types';
-import RequiredMessage from '../../Validation/RequiredMessage';
+import { ErrorTypes, FormFieldTypes, ErrorMessages } from '../../../utils/types';
+import ErrorMessage from '../../FormErrorMessage';
 
 import styles from './DeliverySelect.module.scss';
 
@@ -25,7 +25,9 @@ export default class DeliverySelect extends Component<DeliverySelectProps, Recor
           <option>доставка до постамата</option>
           <option>самовывоз</option>
         </select>
-        {errorsArr.includes(ErrorTypes.DELIVERY_REQUIRED) && <RequiredMessage />}
+        {errorsArr.includes(ErrorTypes.DELIVERY_REQUIRED) && (
+          <ErrorMessage text={ErrorMessages.DELIVERY_REQUIRED} />
+        )}
       </label>
     );
   }
