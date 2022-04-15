@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 import SearchMain from '../../components/SearchMain';
 
-export default class MainPage extends Component {
-  render() {
-    return <SearchMain />;
-  }
-}
+const MainPage: FC = () => {
+  return <SearchMain />;
+};
+
+export default MainPage;
