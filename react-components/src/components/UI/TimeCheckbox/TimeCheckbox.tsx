@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
-import { TimeCheckboxProps } from './types';
-import { FormFieldTypes } from '../../../utils/types';
+import React from 'react';
+import { FormDataValues } from '../../../utils/types';
+import { useController, UseControllerProps } from 'react-hook-form';
 
 import styles from './TimeCheckbox.module.scss';
 
-const Test: FC<TimeCheckboxProps> = ({ forwardRef }) => {
+const TimeCheckbox = (props: UseControllerProps<FormDataValues, 'time'>) => {
+  const { field } = useController(props);
+
   return (
     <label className="label">
       <span className="label-text">Время доставки:</span>
@@ -12,13 +14,7 @@ const Test: FC<TimeCheckboxProps> = ({ forwardRef }) => {
         <label className="label-checkbox" htmlFor="checkbox-call">
           дневное
         </label>
-        <input
-          className="slide-checkbox"
-          type="checkbox"
-          name={FormFieldTypes.TIME}
-          id="checkbox-call"
-          ref={forwardRef}
-        />
+        <input className="slide-checkbox" type="checkbox" id="checkbox-call" {...field} />
         <label
           className="custom-checkbox"
           htmlFor="checkbox-call"
@@ -32,4 +28,4 @@ const Test: FC<TimeCheckboxProps> = ({ forwardRef }) => {
   );
 };
 
-export default Test;
+export default TimeCheckbox;

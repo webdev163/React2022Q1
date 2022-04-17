@@ -1,28 +1,25 @@
-import React, { FC } from 'react';
-import { NameInputProps } from './types';
-import { ErrorTypes, FormFieldTypes, ErrorMessages } from '../../../utils/types';
+import React from 'react';
+import { ErrorMessages, FormDataValues } from '../../../utils/types';
 import ErrorMessage from '../../FormErrorMessage';
+import { useController, UseControllerProps } from 'react-hook-form';
 
 import styles from './NameInput.module.scss';
 
-const NameInput: FC<NameInputProps> = ({ forwardRef, errorsArr, errReset }) => {
+const NameInput = (props: UseControllerProps<FormDataValues, 'name'>) => {
+  const { field, formState } = useController(props);
+  const { errors } = formState;
+
   return (
     <label className="label">
       <span className="label-text">Имя:</span>
-      <input
-        className={styles.input}
-        type="text"
-        name={FormFieldTypes.NAME}
-        ref={forwardRef}
-        onChange={(e) => errReset(e)}
-      />
-      {errorsArr.includes(ErrorTypes.NAME_REQUIRED) && (
+      <input className={styles.input} type="text" {...field} />
+      {errors.name && errors.name.type === 'required' && (
         <ErrorMessage text={ErrorMessages.NAME_REQUIRED} />
       )}
-      {errorsArr.includes(ErrorTypes.NAME_SHORT) && (
+      {errors.name && errors.name.type === 'minLength' && (
         <ErrorMessage text={ErrorMessages.NAME_SHORT} />
       )}
-      {errorsArr.includes(ErrorTypes.NAME_INVALID) && (
+      {errors.name && errors.name.type === 'pattern' && (
         <ErrorMessage text={ErrorMessages.NAME_INVALID} />
       )}
     </label>

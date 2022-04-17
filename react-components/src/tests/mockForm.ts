@@ -18,7 +18,7 @@ export const mockInvalidForm = () => {
       delivery: 'default',
       time: 'вечернее',
       image: '',
-      agree: false,
+      agree: true,
     },
     {
       name: 'ww',
@@ -26,7 +26,7 @@ export const mockInvalidForm = () => {
       delivery: 'default',
       time: 'дневное',
       image: '',
-      agree: true,
+      agree: false,
     },
     {
       name: '',
@@ -34,7 +34,7 @@ export const mockInvalidForm = () => {
       delivery: 'default',
       time: 'вечернее',
       image: '',
-      agree: false,
+      agree: true,
     },
   ];
 };

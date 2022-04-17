@@ -37,7 +37,6 @@ describe('Form card item', () => {
     userEvent.type(date, data.date);
     delivery.value = data.delivery;
     image.value = data.image;
-    agree.checked = data.agree;
     fireEvent.submit(form);
     expect(modal).not.toBeInTheDocument();
 
