@@ -61,7 +61,7 @@ const Form: FC<FormProps> = ({ setFormState }) => {
         <NameInput
           control={control}
           name="name"
-          rules={{ required: true, minLength: 3, pattern: /^[A-Za-z]+$/i }}
+          rules={{ required: true, minLength: 3, pattern: /^[A-Za-zА-Яа-я]+$/i }}
         />
         <DateInput
           control={control}
@@ -87,7 +87,7 @@ const Form: FC<FormProps> = ({ setFormState }) => {
             type="file"
             data-testid="file-input"
             {...register('image', {
-              required: true,
+              validate: (value) => value !== '',
             })}
           />
           {errors.image && <ErrorMessage text={ErrorMessages.IMAGE_REQUIRED} />}
