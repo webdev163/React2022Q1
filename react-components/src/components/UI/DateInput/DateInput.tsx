@@ -1,5 +1,5 @@
 import React from 'react';
-import { ErrorMessages, FormDataValues } from '../../../utils/types';
+import { ErrorMessages, FormDataValues } from '../../../types/types';
 import ErrorMessage from '../../FormErrorMessage';
 import { useController, UseControllerProps } from 'react-hook-form';
 

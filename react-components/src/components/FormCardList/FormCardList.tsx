@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { FormCardListProps } from './types';
-import { FormData } from '../../utils/types';
+import { FormData } from '../../types/types';
 import FormCardItem from '../FormCardItem';
 
 import styles from './FormCardList.module.scss';

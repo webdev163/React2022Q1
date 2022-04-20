@@ -1,4 +1,4 @@
-import { GuardianResponse } from '../utils/types';
+import { GuardianResponse } from '../types/types';
 import axios from 'axios';
 
 const endpointUrl = 'https://content.guardianapis.com/search';

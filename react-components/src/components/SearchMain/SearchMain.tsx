@@ -4,7 +4,7 @@ import CardList from '../../components/CardList';
 import { getData } from '../../services/GuardianService';
 import Loader from '../Loader';
 import CardItemModal from '../CardItemModal';
-import { ModalData, GuardianResponseItem } from '../../utils/types';
+import { ModalData, GuardianResponseItem } from '../../types/types';
 
 import styles from './SearchMain.module.scss';
 

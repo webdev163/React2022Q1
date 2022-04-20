@@ -98,3 +98,12 @@ export interface ModalData {
   webPublicationDate: string;
   shortUrl: string;
 }
+
+export interface InitialState {
+  search: {
+    testCounter: number;
+  };
+  form: {
+    testCounter: number;
+  };
+}

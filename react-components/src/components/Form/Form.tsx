@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { FormDataValues, ErrorMessages } from '../../utils/types';
+import { FormDataValues, ErrorMessages } from '../../types/types';
 import { FormProps } from './types';
 import { fileReader } from '../../utils/fileReader';
 import FormModal from '../FormModal';

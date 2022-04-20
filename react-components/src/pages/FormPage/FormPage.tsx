@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import Form from '../../components/Form';
-import { FormData } from '../../utils/types';
+import { FormData } from '../../types/types';
 import FormCardList from '../../components/FormCardList';
 
 import styles from './FormPage.module.scss';
