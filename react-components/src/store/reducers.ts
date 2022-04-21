@@ -28,6 +28,8 @@ export const searchReducer = (state: SearchState, action: SearchAction) => {
       return { ...state, query: action.payload };
     case SearchActionTypes.SET_DATA:
       return { ...state, dataArr: action.payload };
+    case SearchActionTypes.SET_SORTING:
+      return { ...state, sort: action.payload };
     default:
       return state;
   }

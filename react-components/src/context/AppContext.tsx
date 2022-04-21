@@ -8,6 +8,7 @@ const initialState = {
   search: {
     query: '',
     dataArr: [],
+    sort: 'newest',
   },
   form: {
     name: '',

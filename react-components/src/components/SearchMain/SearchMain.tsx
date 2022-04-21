@@ -18,13 +18,13 @@ const SearchMain: FC = () => {
   const [modalData, setModalData] = useState<ModalData | null>(null);
 
   const { state, dispatch } = useContext(AppContext);
-  const { query, dataArr } = state.search;
+  const { query, dataArr, sort } = state.search;
 
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
       setIsLoading(true);
-      const data = await getData(query).catch(() => {
+      const data = await getData(query, sort).catch(() => {
         setIsError(true);
         setIsLoading(false);
       });
@@ -36,7 +36,7 @@ const SearchMain: FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [query, dispatch, isSubmitting]);
+  }, [query, dispatch, sort, isSubmitting]);
 
   useEffect(() => {
     if (dataArr.length) {
@@ -47,6 +47,14 @@ const SearchMain: FC = () => {
   const updateQuery = useCallback(
     (query: string) => {
       dispatch({ type: SearchActionTypes.SET_QUERY, payload: query });
+      setIsSubmitting(true);
+    },
+    [dispatch]
+  );
+
+  const updateSorting = useCallback(
+    (sort: string) => {
+      dispatch({ type: SearchActionTypes.SET_SORTING, payload: sort });
       setIsSubmitting(true);
     },
     [dispatch]
@@ -82,7 +90,7 @@ const SearchMain: FC = () => {
   return (
     <div data-testid="main-page">
       <div className={styles.formWrapper}>
-        <SearchForm setQuery={updateQuery} />
+        <SearchForm setQuery={updateQuery} setSorting={updateSorting} />
       </div>
       {generateCards()}
       <div
