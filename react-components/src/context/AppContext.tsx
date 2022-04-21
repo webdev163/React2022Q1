@@ -16,6 +16,7 @@ const initialState = {
     time: '',
     image: '',
     agree: '',
+    formStatesArr: [],
   },
 };
 

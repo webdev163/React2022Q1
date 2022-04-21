@@ -111,5 +111,6 @@ export interface InitialState {
     time: string;
     image: string;
     agree: string;
+    formStatesArr: FormData[] | [];
   };
 }

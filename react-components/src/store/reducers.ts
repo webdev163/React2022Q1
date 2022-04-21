@@ -15,6 +15,8 @@ export const formReducer = (state: FormState, action: FormAction) => {
       return { ...state, image: action.payload };
     case FormActionTypes.SET_AGREE:
       return { ...state, agree: action.payload };
+    case FormActionTypes.SET_FORM_STATES_ARR:
+      return { ...state, formStatesArr: action.payload };
     default:
       return state;
   }
