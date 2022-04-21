@@ -8,13 +8,15 @@ const SearchForm: FC<SearchFormProps> = ({ setQuery }) => {
   const [formValue, setFormValue] = useState<string>('');
 
   const { state } = useContext(AppContext);
-  const { query } = state.search;
+  const { query, dataArr } = state.search;
 
   useEffect(() => {
-    const prevValue = localStorage.getItem('webdev163-search-query') || '';
-    setQuery(prevValue);
-    setFormValue(prevValue);
-  }, [setQuery]);
+    if (!dataArr.length) {
+      const prevValue = localStorage.getItem('webdev163-search-query') || '';
+      setQuery(prevValue);
+      setFormValue(prevValue);
+    }
+  }, [dataArr, setQuery]);
 
   useEffect(() => {
     if (query) {

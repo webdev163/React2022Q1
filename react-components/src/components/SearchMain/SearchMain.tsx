@@ -12,6 +12,7 @@ import styles from './SearchMain.module.scss';
 
 const SearchMain: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [modalData, setModalData] = useState<ModalData | null>(null);
@@ -31,11 +32,11 @@ const SearchMain: FC = () => {
         isMounted &&
         dispatch({ type: SearchActionTypes.SET_DATA, payload: data.response.results });
     };
-    fetchData();
+    isSubmitting && fetchData();
     return () => {
       isMounted = false;
     };
-  }, [query, dispatch]);
+  }, [query, dispatch, isSubmitting]);
 
   useEffect(() => {
     if (dataArr.length) {
@@ -46,6 +47,7 @@ const SearchMain: FC = () => {
   const updateQuery = useCallback(
     (query: string) => {
       dispatch({ type: SearchActionTypes.SET_QUERY, payload: query });
+      setIsSubmitting(true);
     },
     [dispatch]
   );
