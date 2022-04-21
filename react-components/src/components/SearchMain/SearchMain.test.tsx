@@ -2,6 +2,7 @@ import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-lib
 import userEvent from '@testing-library/user-event';
 import SearchMain from './SearchMain';
 import { mockGuardianResponse } from '../../tests/mockGuardianResponse';
+import { AppProvider } from '../../context/AppContext';
 
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
@@ -26,7 +27,11 @@ describe('Main page search functionality', () => {
   });
 
   beforeEach(() => {
-    render(<SearchMain />);
+    render(
+      <AppProvider>
+        <SearchMain />
+      </AppProvider>
+    );
     input = screen.getByPlaceholderText(/Поиск/i);
     wrapper = screen.getByTestId('main-page');
   });

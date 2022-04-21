@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import AppRouter from './router/AppRouter';
 import mockLocalStorage from './tests/mockLocalStorage';
+import { AppProvider } from './context/AppContext';
 
 const { getItemMock, setItemMock } = mockLocalStorage();
 
@@ -31,9 +32,11 @@ describe('App', () => {
 
   beforeEach(() => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <AppRouter />
-      </MemoryRouter>
+      <AppProvider>
+        <MemoryRouter initialEntries={['/']}>
+          <AppRouter />
+        </MemoryRouter>
+      </AppProvider>
     );
   });
 

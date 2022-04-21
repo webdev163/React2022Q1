@@ -5,7 +5,7 @@ describe('Search form', () => {
   let input: HTMLInputElement;
   beforeEach(() => {
     const mock = jest.fn();
-    render(<SearchForm setQuery={mock} query="" />);
+    render(<SearchForm setQuery={mock} />);
     input = screen.getByPlaceholderText(/Поиск/i);
   });
 

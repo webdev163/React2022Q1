@@ -11,6 +11,12 @@ const SearchForm: FC<SearchFormProps> = ({ setQuery }) => {
   const { query } = state.search;
 
   useEffect(() => {
+    const prevValue = localStorage.getItem('webdev163-search-query') || '';
+    setQuery(prevValue);
+    setFormValue(prevValue);
+  }, [setQuery]);
+
+  useEffect(() => {
     if (query) {
       setFormValue(query);
     }
@@ -24,6 +30,7 @@ const SearchForm: FC<SearchFormProps> = ({ setQuery }) => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setQuery(formValue);
+    localStorage.setItem('webdev163-search-query', formValue);
   };
 
   return (
