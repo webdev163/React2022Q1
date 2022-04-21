@@ -6,7 +6,8 @@ import { InitialState } from '../types/types';
 
 const initialState = {
   search: {
-    testCounter: 0,
+    query: '',
+    dataArr: [],
   },
   form: {
     testCounter: 0,

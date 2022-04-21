@@ -1,20 +1,23 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useContext } from 'react';
 import SearchForm from '../../components/SearchForm';
 import CardList from '../../components/CardList';
 import { getData } from '../../services/GuardianService';
 import Loader from '../Loader';
 import CardItemModal from '../CardItemModal';
-import { ModalData, GuardianResponseItem } from '../../types/types';
+import { ModalData } from '../../types/types';
+import { AppContext } from '../../context/AppContext';
+import { SearchActionTypes } from '../../types/search';
 
 import styles from './SearchMain.module.scss';
 
 const SearchMain: FC = () => {
-  const [query, setQuery] = useState<string>('');
-  const [dataArr, setDataArr] = useState<GuardianResponseItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [modalData, setModalData] = useState<ModalData | null>(null);
+
+  const { state, dispatch } = useContext(AppContext);
+  const { query, dataArr } = state.search;
 
   useEffect(() => {
     let isMounted = true;
@@ -24,13 +27,15 @@ const SearchMain: FC = () => {
         setIsError(true);
         setIsLoading(false);
       });
-      data && isMounted && setDataArr([...data.response.results]);
+      data &&
+        isMounted &&
+        dispatch({ type: SearchActionTypes.SET_DATA, payload: data.response.results });
     };
     fetchData();
     return () => {
       isMounted = false;
     };
-  }, [query]);
+  }, [query, dispatch]);
 
   useEffect(() => {
     if (dataArr.length) {
@@ -39,7 +44,7 @@ const SearchMain: FC = () => {
   }, [dataArr]);
 
   const updateQuery = (query: string) => {
-    setQuery(query);
+    dispatch({ type: SearchActionTypes.SET_QUERY, payload: query });
   };
 
   const toggleModal = (newModalData?: ModalData | undefined) => {
@@ -72,7 +77,7 @@ const SearchMain: FC = () => {
   return (
     <div data-testid="main-page">
       <div className={styles.formWrapper}>
-        <SearchForm setQuery={updateQuery} />
+        <SearchForm setQuery={updateQuery} query={query} />
       </div>
       {generateCards()}
       <div

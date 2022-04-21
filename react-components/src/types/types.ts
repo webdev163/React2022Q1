@@ -101,7 +101,8 @@ export interface ModalData {
 
 export interface InitialState {
   search: {
-    testCounter: number;
+    query: string;
+    dataArr: GuardianResponseItem[] | [];
   };
   form: {
     testCounter: number;

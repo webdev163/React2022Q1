@@ -12,8 +12,10 @@ export const formReducer = (state: FormState, action: FormAction) => {
 
 export const searchReducer = (state: SearchState, action: SearchAction) => {
   switch (action.type) {
-    case SearchActionTypes.INC_COUNTER:
-      return { ...state, testCounter: state.testCounter + 1 };
+    case SearchActionTypes.SET_QUERY:
+      return { ...state, query: action.payload };
+    case SearchActionTypes.SET_DATA:
+      return { ...state, dataArr: action.payload };
     default:
       return state;
   }

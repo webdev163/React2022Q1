@@ -1,13 +1,23 @@
+import { GuardianResponseItem } from './types';
+
 export interface SearchState {
-  testCounter: number;
+  query: string;
+  dataArr: GuardianResponseItem[] | [];
 }
 
 export enum SearchActionTypes {
-  INC_COUNTER = 'INC_COUNTER',
+  SET_QUERY = 'SET_QUERY',
+  SET_DATA = 'SET_DATA',
 }
 
-interface IncCounterAction {
-  type: SearchActionTypes.INC_COUNTER;
+interface SetQueryAction {
+  type: SearchActionTypes.SET_QUERY;
+  payload: string;
 }
 
-export type SearchAction = IncCounterAction;
+interface SetDataAction {
+  type: SearchActionTypes.SET_DATA;
+  payload: GuardianResponseItem[];
+}
+
+export type SearchAction = SetQueryAction | SetDataAction;
