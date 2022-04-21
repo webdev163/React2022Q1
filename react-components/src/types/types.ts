@@ -105,6 +105,11 @@ export interface InitialState {
     dataArr: GuardianResponseItem[] | [];
   };
   form: {
-    testCounter: number;
+    name: string;
+    date: string;
+    delivery: string;
+    time: string;
+    image: string;
+    agree: string;
   };
 }
