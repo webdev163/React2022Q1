@@ -104,6 +104,9 @@ export interface InitialState {
     query: string;
     dataArr: GuardianResponseItem[] | [];
     sort: string;
+    totalPages: number | null;
+    currentPage: number;
+    itemsPerPage: number;
   };
   form: {
     name: string;

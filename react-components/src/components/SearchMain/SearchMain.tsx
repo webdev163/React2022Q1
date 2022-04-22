@@ -18,25 +18,26 @@ const SearchMain: FC = () => {
   const [modalData, setModalData] = useState<ModalData | null>(null);
 
   const { state, dispatch } = useContext(AppContext);
-  const { query, dataArr, sort } = state.search;
+  const { query, dataArr, sort, currentPage, itemsPerPage } = state.search;
 
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
       setIsLoading(true);
-      const data = await getData(query, sort).catch(() => {
+      const data = await getData(query, sort, itemsPerPage, currentPage).catch(() => {
         setIsError(true);
         setIsLoading(false);
       });
-      data &&
-        isMounted &&
+      if (data && isMounted) {
         dispatch({ type: SearchActionTypes.SET_DATA, payload: data.response.results });
+        dispatch({ type: SearchActionTypes.SET_TOTAL_PAGES, payload: data.response.pages });
+      }
     };
     isSubmitting && fetchData();
     return () => {
       isMounted = false;
     };
-  }, [query, dispatch, sort, isSubmitting]);
+  }, [query, dispatch, sort, isSubmitting, currentPage, itemsPerPage]);
 
   useEffect(() => {
     if (dataArr.length) {
@@ -55,6 +56,22 @@ const SearchMain: FC = () => {
   const updateSorting = useCallback(
     (sort: string) => {
       dispatch({ type: SearchActionTypes.SET_SORTING, payload: sort });
+      setIsSubmitting(true);
+    },
+    [dispatch]
+  );
+
+  const updatePage = useCallback(
+    (page: number) => {
+      dispatch({ type: SearchActionTypes.SET_CURRENT_PAGE, payload: page });
+      setIsSubmitting(true);
+    },
+    [dispatch]
+  );
+
+  const updateItemsPerPage = useCallback(
+    (num: number) => {
+      dispatch({ type: SearchActionTypes.SET_ITEMS_PER_PAGE, payload: num });
       setIsSubmitting(true);
     },
     [dispatch]
@@ -90,7 +107,12 @@ const SearchMain: FC = () => {
   return (
     <div data-testid="main-page">
       <div className={styles.formWrapper}>
-        <SearchForm setQuery={updateQuery} setSorting={updateSorting} />
+        <SearchForm
+          setQuery={updateQuery}
+          setSorting={updateSorting}
+          setPage={updatePage}
+          setItemsPerPage={updateItemsPerPage}
+        />
       </div>
       {generateCards()}
       <div

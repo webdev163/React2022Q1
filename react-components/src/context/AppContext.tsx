@@ -9,6 +9,9 @@ const initialState = {
     query: '',
     dataArr: [],
     sort: 'newest',
+    totalPages: null,
+    currentPage: 1,
+    itemsPerPage: 20,
   },
   form: {
     name: '',
