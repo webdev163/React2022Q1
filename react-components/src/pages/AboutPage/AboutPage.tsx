@@ -5,7 +5,6 @@ import styles from './AboutPage.module.scss';
 const AboutPage: FC = () => {
   return (
     <div className={styles.wrapper} data-testid="about-page">
-      <h1 className={styles.title}>About us</h1>
       <p>
         The Guardian is a British daily newspaper. It was founded in 1821 as The Manchester
         Guardian, and changed its name in 1959. Along with its sister papers The Observer and The

@@ -12,6 +12,7 @@ const initialState = {
     totalPages: null,
     currentPage: 1,
     itemsPerPage: 20,
+    articleData: null,
   },
   form: {
     name: '',

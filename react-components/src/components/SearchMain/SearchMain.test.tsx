@@ -1,8 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SearchMain from './SearchMain';
 import { mockGuardianResponse } from '../../tests/mockGuardianResponse';
 import { AppProvider } from '../../context/AppContext';
+import { MemoryRouter } from 'react-router-dom';
 
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
@@ -29,7 +30,9 @@ describe('Main page search functionality', () => {
   beforeEach(() => {
     render(
       <AppProvider>
-        <SearchMain />
+        <MemoryRouter initialEntries={['/']}>
+          <SearchMain />
+        </MemoryRouter>
       </AppProvider>
     );
     input = screen.getByPlaceholderText(/Поиск/i);
@@ -52,43 +55,13 @@ describe('Main page search functionality', () => {
       name: /find/i,
     });
     userEvent.click(button);
+    const loader = await screen.findByTestId('loader');
+    await waitForElementToBeRemoved(loader);
     await waitFor(() => {
       expect(
         screen.getByText(mockedResponse.response.results[0].fields.headline)
       ).toBeInTheDocument();
     });
-  });
-
-  it('should open and close modal window, render modal data', async () => {
-    expect(input).toContainHTML('');
-    userEvent.type(input, 'california');
-    expect(input).toContainHTML('california');
-
-    const button = screen.getByRole('button', {
-      name: /find/i,
-    });
-    userEvent.click(button);
-    const cards = await screen.findAllByRole('listitem');
-    const card = cards[0];
-    userEvent.click(card);
-
-    let modalWindow;
-
-    await waitFor(() => {
-      modalWindow = screen.getByTestId('card-item-modal');
-    });
-
-    expect(modalWindow).toBeInTheDocument();
-    userEvent.click(screen.getByTestId('modal-inner'));
-    expect(modalWindow).toBeInTheDocument();
-
-    expect(wrapper).toContainHTML(mockedResponse.response.results[0].fields.headline);
-    expect(wrapper).toContainHTML(mockedResponse.response.results[0].fields.shortUrl);
-
-    const closeBtn = screen.getByTestId('close-modal-button');
-    userEvent.click(closeBtn);
-
-    expect(screen.queryByTestId('card-item-modal')).not.toBeInTheDocument();
   });
 });
 

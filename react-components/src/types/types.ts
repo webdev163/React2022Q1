@@ -91,7 +91,7 @@ export interface GuardianResponse {
   };
 }
 
-export interface ModalData {
+export interface ArticleData {
   body: string;
   thumbnail?: string;
   standfirst: string;
@@ -107,6 +107,7 @@ export interface InitialState {
     totalPages: number | null;
     currentPage: number;
     itemsPerPage: number;
+    articleData: ArticleData | null;
   };
   form: {
     name: string;

@@ -1,13 +1,17 @@
 import { render, screen, within } from '@testing-library/react';
 import CardList from './CardList';
 import { mockGuardianResponse } from '../../tests/mockGuardianResponse';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('Card item', () => {
   let list: HTMLElement;
   const testData = mockGuardianResponse().response.results;
-  const mock = jest.fn();
   beforeEach(() => {
-    render(<CardList dataArr={testData} toggleModal={mock} />);
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <CardList dataArr={testData} />
+      </MemoryRouter>
+    );
     list = screen.getByTestId('card-list');
   });
 
