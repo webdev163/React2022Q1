@@ -119,3 +119,10 @@ export interface InitialState {
     formStatesArr: FormData[] | [];
   };
 }
+
+export interface GetData {
+  query: string;
+  itemsPerPage: number;
+  currentPage: number;
+  sort: string;
+}

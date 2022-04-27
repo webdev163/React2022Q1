@@ -1,9 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { ErrorMessages, FormDataValues } from '../../../types/types';
 import ErrorMessage from '../../FormErrorMessage';
 import { useController, UseControllerProps } from 'react-hook-form';
-import { AppContext } from '../../../context/AppContext';
-import { FormActionTypes } from '../../../types/form';
+import { useAppDispatch } from '../../../hooks/redux';
+import { setDelivery } from '../../../store/reducers/formSlice';
 
 import styles from './DeliverySelect.module.scss';
 
@@ -12,10 +12,10 @@ const DeliverySelect = (props: UseControllerProps<FormDataValues, 'delivery'>) =
   const { value } = field;
   const { errors } = formState;
 
-  const { dispatch } = useContext(AppContext);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch({ type: FormActionTypes.SET_DELIVERY, payload: value });
+    dispatch(setDelivery(value));
   }, [dispatch, value]);
 
   return (

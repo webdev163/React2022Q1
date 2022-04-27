@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState, useContext } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { SearchFormProps } from './types';
-import { AppContext } from '../../context/AppContext';
+import { useAppSelector } from '../../hooks/redux';
 
 import styles from './SearchForm.module.scss';
 
@@ -8,8 +8,9 @@ const SearchForm: FC<SearchFormProps> = ({ setQuery, setSorting, setPage, setIte
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const { state } = useContext(AppContext);
-  const { query, dataArr, sort, totalPages, currentPage, itemsPerPage } = state.search;
+  const { query, dataArr, sort, totalPages, currentPage, itemsPerPage } = useAppSelector(
+    (state) => state.search
+  );
 
   useEffect(() => {
     if (!dataArr.length) {

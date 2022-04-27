@@ -1,8 +1,8 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { FormDataValues } from '../../../types/types';
 import { useController, UseControllerProps } from 'react-hook-form';
-import { AppContext } from '../../../context/AppContext';
-import { FormActionTypes } from '../../../types/form';
+import { useAppDispatch } from '../../../hooks/redux';
+import { setTime } from '../../../store/reducers/formSlice';
 
 import styles from './TimeCheckbox.module.scss';
 
@@ -10,10 +10,10 @@ const TimeCheckbox = (props: UseControllerProps<FormDataValues, 'time'>) => {
   const { field } = useController(props);
   const { value } = field;
 
-  const { dispatch } = useContext(AppContext);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch({ type: FormActionTypes.SET_TIME, payload: value });
+    dispatch(setTime(value));
   }, [dispatch, value]);
 
   return (

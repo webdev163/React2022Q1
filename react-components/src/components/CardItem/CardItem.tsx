@@ -1,9 +1,9 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { CardItemProps } from './types';
 import { convertDate } from '../../utils/convertDate';
-import { AppContext } from '../../context/AppContext';
-import { SearchActionTypes } from '../../types/search';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux';
+import { setArticleData } from '../../store/reducers/searchSlice';
 
 import styles from './CardItem.module.scss';
 
@@ -11,13 +11,10 @@ const CardItem: FC<CardItemProps> = (props) => {
   const { body, headline, shortUrl, standfirst, thumbnail } = props.data.fields;
   const { webPublicationDate } = props.data;
 
-  const { dispatch } = useContext(AppContext);
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch({
-      type: SearchActionTypes.SET_ARTICLE_DATA,
-      payload: { body, thumbnail, standfirst, webPublicationDate, shortUrl },
-    });
+    dispatch(setArticleData({ body, thumbnail, standfirst, webPublicationDate, shortUrl }));
   };
 
   return (

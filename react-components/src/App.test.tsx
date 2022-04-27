@@ -3,9 +3,10 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import AppRouter from './router/AppRouter';
 import mockLocalStorage from './tests/mockLocalStorage';
-import { AppProvider } from './context/AppContext';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
-const { getItemMock, setItemMock } = mockLocalStorage();
+const { setItemMock } = mockLocalStorage();
 
 import { mockGuardianResponse } from './tests/mockGuardianResponse';
 
@@ -33,11 +34,11 @@ describe('App', () => {
 
   beforeEach(() => {
     render(
-      <AppProvider>
+      <Provider store={store}>
         <MemoryRouter initialEntries={['/']}>
           <AppRouter />
         </MemoryRouter>
-      </AppProvider>
+      </Provider>
     );
     window.scrollTo = jest.fn();
     input = screen.getByPlaceholderText(/Поиск/i);
@@ -62,7 +63,6 @@ describe('App', () => {
   });
 
   it('should open article page', async () => {
-    await waitForElementToBeRemoved(() => screen.getByTestId('loader'));
     expect(input).toContainHTML('');
     userEvent.type(input, 'california');
     expect(input).toContainHTML('california');
@@ -101,9 +101,11 @@ describe('App', () => {
 describe('Error page', () => {
   beforeEach(() => {
     render(
-      <MemoryRouter initialEntries={['/wrong-url']}>
-        <AppRouter />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/wrong-url']}>
+          <AppRouter />
+        </MemoryRouter>
+      </Provider>
     );
   });
 
@@ -119,14 +121,17 @@ describe('Local storage', () => {
 
   beforeEach(() => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <AppRouter />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <AppRouter />
+        </MemoryRouter>
+      </Provider>
     );
     input = screen.getByPlaceholderText(/Поиск/i);
   });
 
   it('should save/read input value to/from localstorage', () => {
+    userEvent.clear(input);
     expect(input).toContainHTML('');
     userEvent.type(input, value);
     expect(input).toContainHTML(value);
@@ -137,9 +142,5 @@ describe('Local storage', () => {
     userEvent.click(button);
     userEvent.click(aboutLink);
     expect(setItemMock).toHaveBeenCalledWith(key, value);
-
-    const mainLink = screen.getByTestId('main-link');
-    userEvent.click(mainLink);
-    expect(getItemMock).toHaveBeenCalledWith(key);
   });
 });

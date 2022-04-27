@@ -2,6 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import Form from './Form';
 import userEvent from '@testing-library/user-event';
 import { mockInvalidForm, mockValidForm } from '../../tests/mockForm';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
 
 describe('Form card item', () => {
   let form: HTMLElement;
@@ -17,7 +19,11 @@ describe('Form card item', () => {
 
   const setup = () => {
     const mock = jest.fn();
-    render(<Form setFormState={mock} />);
+    render(
+      <Provider store={store}>
+        <Form setFormState={mock} />
+      </Provider>
+    );
     form = screen.getByTestId('form');
     name = screen.getByRole('textbox', { name: /имя:/i });
     date = screen.getByTestId('date-input');

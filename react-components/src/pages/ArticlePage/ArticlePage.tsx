@@ -1,21 +1,21 @@
-import React, { FC, useContext, useEffect } from 'react';
-import { AppContext } from '../../context/AppContext';
+import React, { FC, useEffect } from 'react';
 import { convertDate } from '../../utils/convertDate';
 import { scrollToTop } from '../../utils/scrollToTop';
 import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
 
 import styles from './ArticlePage.module.scss';
 
 const ArticlePage: FC = () => {
-  const { state } = useContext(AppContext);
+  const { articleData } = useAppSelector((state) => state.search);
 
   useEffect(() => {
     scrollToTop();
   }, []);
 
-  if (!state.search.articleData) return <Navigate replace to="/" />;
+  if (!articleData) return <Navigate replace to="/" />;
 
-  const { body, thumbnail, standfirst, webPublicationDate, shortUrl } = state.search.articleData;
+  const { body, thumbnail, standfirst, webPublicationDate, shortUrl } = articleData;
 
   return (
     <div className="container" data-testid="article-page">
